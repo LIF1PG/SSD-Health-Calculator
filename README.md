@@ -21,11 +21,13 @@
 2. Run the following commands:
    
     ```sh
+        smartctl -a -d nvme /dev/sda
+
         "C:\Program Files\smartmontools\bin\smartctl.exe" --scan
         "C:\Program Files\smartmontools\bin\smartctl.exe" -a -d nvme \.\PhysicalDrive0
     ```
 
-1. Find “Data Units Written” in the output. Convert to TB:
+1. Find “`Data Units Written`” in the output. Convert to TB:
 
     ```sh
         TB ≈ DataUnits × 512000 / 1e12
