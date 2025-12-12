@@ -20,26 +20,27 @@
 1. Open Command Prompt as Administrator.
 2. Run the following commands:
    
-```sh
-"C:\Program Files\smartmontools\bin\smartctl.exe" --scan
-"C:\Program Files\smartmontools\bin\smartctl.exe" -a -d nvme \.\PhysicalDrive0
-```
+    ```sh
+        "C:\Program Files\smartmontools\bin\smartctl.exe" --scan
+        "C:\Program Files\smartmontools\bin\smartctl.exe" -a -d nvme \.\PhysicalDrive0
+    ```
 
 1. Find “Data Units Written” in the output. Convert to TB:
-```sh
-TB ≈ DataUnits × 512000 / 1e12
-```
+
+    ```sh
+        TB ≈ DataUnits × 512000 / 1e12
+    ```
 
 ### Using the Portable Version
 
 1. Open Command Prompt as Administrator.
 2. Run the following commands:
    
-```sh
-cd C:\smartmontools\bin
-smartctl.exe --scan
-smartctl.exe -a -d nvme \.\PhysicalDrive0
-```
+    ```sh
+        cd C:\smartmontools\bin
+        smartctl.exe --scan
+        smartctl.exe -a -d nvme \.\PhysicalDrive0
+    ```
 
 1. Convert “Data Units Written” to TB as above.
 
@@ -48,5 +49,5 @@ smartctl.exe -a -d nvme \.\PhysicalDrive0
 To print TB (adjust drive number if needed), run:
 
 ```sh
-powershell -NoProfile -Command "$du = (& 'C:\Program Files\smartmontools\bin\smartctl.exe' -a -d nvme \.\PhysicalDrive0 | Select-String 'Data Units Written').ToString() -replace '.Written:\s','' -replace '\s*[.*','' -replace ',',''; [math]::Round([double]$du * 512000 / 1e12, 2)"
+    powershell -NoProfile -Command "$du = (& 'C:\Program Files\smartmontools\bin\smartctl.exe' -a -d nvme \.\PhysicalDrive0 | Select-String 'Data Units Written').ToString() -replace '.Written:\s','' -replace '\s*[.*','' -replace ',',''; [math]::Round([double]$du * 512000 / 1e12, 2)"
 ```
