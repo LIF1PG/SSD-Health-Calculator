@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Smartmontools Setup and Usage Guide</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="smartmontools-setup-and-usage-guide">Smartmontools Setup and Usage Guide</h1>
+<h2 id="installation">Installation</h2>
+<h3 id="option-a-windows-installer">Option A: Windows Installer</h3>
+<ol>
+<li>Go to: <a href="https://www.smartmontools.org">Smartmontools Downloads</a></li>
+<li>Click <code>Downloads</code> → <code>Windows</code> → choose the Windows installer (64‑bit if your Windows is 64‑bit).</li>
+<li>Run the installer and finish setup.</li>
+</ol>
+<h3 id="option-b-portable-zip-no-install">Option B: Portable ZIP (no install)</h3>
+<ol>
+<li>On the same downloads page, pick the Windows ZIP package (64‑bit).</li>
+<li>Extract it to e.g., <code>C:\smartmontools</code>.</li>
+</ol>
+<h2 id="running-smartmontools">Running Smartmontools</h2>
+<h3 id="using-the-installed-version">Using the Installed Version</h3>
+<ol>
+<li>Open Command Prompt as Administrator.</li>
+<li>Run the following commands:<pre><code class="language-sh"></code></pre>
+</li>
+</ol>
+<p>&quot;C:\Program Files\smartmontools\bin\smartctl.exe&quot; --scan
+&quot;C:\Program Files\smartmontools\bin\smartctl.exe&quot; -a -d nvme .\PhysicalDrive0
+<code>3. Find “Data Units Written” in the output. Convert to TB:    </code>sh
+TB ≈ DataUnits × 512000 / 1e12
+```</p>
+<h3 id="using-the-portable-version">Using the Portable Version</h3>
+<ol>
+<li>Open Command Prompt as Administrator.</li>
+<li>Run the following commands:<pre><code class="language-sh"></code></pre>
+</li>
+</ol>
+<p>cd C:\smartmontools\bin
+smartctl.exe --scan
+smartctl.exe -a -d nvme .\PhysicalDrive0
+```
+3. Convert “Data Units Written” to TB as above.</p>
+<h3 id="quick-powershell-command">Quick PowerShell Command</h3>
+<p>To print TB (adjust drive number if needed), run:</p>
+<pre><code class="language-sh">powershell -NoProfile -Command <span class="hljs-string">&quot;<span class="hljs-variable">$du</span> = (&amp; &#x27;C:\Program Files\smartmontools\bin\smartctl.exe&#x27; -a -d nvme \.\PhysicalDrive0 | Select-String &#x27;Data Units Written&#x27;).ToString() -replace &#x27;.Written:\s&#x27;,&#x27;&#x27; -replace &#x27;\s*[.*&#x27;,&#x27;&#x27; -replace &#x27;,&#x27;,&#x27;&#x27;; [math]::Round([double]<span class="hljs-variable">$du</span> * 512000 / 1e12, 2)&quot;</span></code></pre>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
