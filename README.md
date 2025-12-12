@@ -20,15 +20,15 @@
 1. Open Command Prompt as Administrator.
 2. Run the following commands:
    
-    ```sh
- "C:\Program Files\smartmontools\bin\smartctl.exe" --scan
- "C:\Program Files\smartmontools\bin\smartctl.exe" -a -d nvme \.\PhysicalDrive0
-    ```
-    
+```sh
+"C:\Program Files\smartmontools\bin\smartctl.exe" --scan
+"C:\Program Files\smartmontools\bin\smartctl.exe" -a -d nvme \.\PhysicalDrive0
+```
+
 1. Find “Data Units Written” in the output. Convert to TB:
-    ```sh
- TB ≈ DataUnits × 512000 / 1e12
-    ```
+```sh
+TB ≈ DataUnits × 512000 / 1e12
+```
 
 ### Using the Portable Version
 
